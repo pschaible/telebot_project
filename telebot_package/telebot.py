@@ -1,17 +1,19 @@
-
 import telebot
 
 from time import sleep
 from math import *
 from random import *
 
-bot = telebot.Bot(token='166712353:AAGQxJyriJEIvi2l4oSqMLcv1Wdhhpc8gFk')
+var = TeleBot("TEST")
+
+bot = telebot.TeleBot('166712353:AAGQxJyriJEIvi2l4oSqMLcv1Wdhhpc8gFk')
 
 max_ids = {}
 
 while True:
     updates = bot.getUpdates()
-    for  u in updates:
+
+    for u in updates:
         message = u.message
         text = message['text']
         message_id = message['message_id']
