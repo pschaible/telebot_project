@@ -1,11 +1,6 @@
-# This is a simple echo bot using the decorator mechanism.
-# It echoes any incoming text messages.
 import random
-
 import telebot
-
 from telebot import types
-
 
 
 API_TOKEN = '166712353:AAGQxJyriJEIvi2l4oSqMLcv1Wdhhpc8gFk'
@@ -46,27 +41,28 @@ answers = ['выдающаяся хрящевая часть гортани', '�
 
 
 
-number1 = random.randint(1,25)
-number2 = random.randint(1,20)
-number3 = random.randint(21,40)
+
 
 markup = types.ReplyKeyboardMarkup()
-markup.row(rightMeaning[number1])
-markup.row(answers[number2])
-markup.row(answers[number3])
+
 
 
 # Handle '/start' and '/help'
-# <editor-fold desc="Description">
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
-    bot.reply_to(message, "Здорово, товарищ! Выбери правильное значение для слова: " + dictionary[number1], reply_markup=markup)
-# </editor-fold>
+
+    markup.row(rightMeaning[random.randint(1,20)])
+    markup.row(answers[random.randint(1, 20)])
+    markup.row(answers[random.randint(21, 40)])
+
+    bot.reply_to(message, "Здорово, товарищ! Выбери правильное значение для слова: " + dictionary[random.randint(1,25)], reply_markup=markup)
+
 
 
 # Handle all other messages with content_type 'text' (content_types defaults to ['text'])
 @bot.message_handler(func=lambda message: True)
 def echo_message(message):
-    bot.reply_to(message, message.text)
+    bot.reply_to(message, "genau")
+
 
 bot.polling()
