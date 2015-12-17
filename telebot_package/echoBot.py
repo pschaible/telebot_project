@@ -50,36 +50,23 @@ number1 = random.randint(1,25)
 number2 = random.randint(1,20)
 number3 = random.randint(21,40)
 
-row1 = dictionary[number1]
-row2 = rightMeaning[number1]
-row3 = answers[number2]
-row4 = answers[number3]
-
-
-custom_keyboard =[[row2],
-                  [row3],
-                  [row4]
-                 ]
-
 markup = types.ReplyKeyboardMarkup()
-markup.row(row1)
-markup.row(row2)
-markup.row(row3)
-markup.row(row4)
-
+markup.row(rightMeaning[number1])
+markup.row(answers[number2])
+markup.row(answers[number3])
 
 
 # Handle '/start' and '/help'
+# <editor-fold desc="Description">
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
-    bot.reply_to(message, """\
-Здорово, товарищ! Выбери правильное значение для слова: " + row1, reply_markup=reply_markup\
-""")
+    bot.reply_to(message, "Здорово, товарищ! Выбери правильное значение для слова: " + dictionary[number1], reply_markup=markup)
+# </editor-fold>
 
 
 # Handle all other messages with content_type 'text' (content_types defaults to ['text'])
 @bot.message_handler(func=lambda message: True)
 def echo_message(message):
-    bot.reply_to(message, message.text, reply_markup=markup)
+    bot.reply_to(message, message.text)
 
 bot.polling()
